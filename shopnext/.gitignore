@@ -9,7 +9,8 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+# env
+.env.local
 # testing
 /coverage
 
@@ -32,10 +33,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
+#formate
+.prettierignore
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+package-lock.json
