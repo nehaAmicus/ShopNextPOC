@@ -1,8 +1,3 @@
-// It must be a Client Component and
-// should offer a retry action.
-//  Add global-error.tsx only if you want a custom UI for errors in the root layout itself.
-// Add src/app/error.tsx for recoverable route-segment errors.
-
 "use client";
 
 import { useEffect } from "react";
