@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  images: {
+    remotePatterns: [new URL("https://cdn.dummyjson.com/**")],
+  },
   turbopack: {
     rules: {
       "*.css": {
