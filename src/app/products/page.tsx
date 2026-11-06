@@ -1,53 +1,61 @@
-import { getProducts } from "@/services/product.service";
+import {
+  getProductCategories,
+  getProductsByEndPoints,
+} from "@/services/product.service";
 import ProductList from "@/components/products/ProductList";
 import { Suspense } from "react";
 import Pagination from "@/components/products/Pagination";
+import ProductFilters from "@/components/products/ProductFilters";
 
 interface ProductPageProps {
   searchParams: Promise<{
     page?: string;
+    q?: string;
+    category?: string;
+    sortBy?: string;
+    order?: "asc" | "desc";
   }>;
 }
-// Why is searchParams a Promise?
-// In modern Next.js App Router conventions,
-//  searchParams is asynchronous.
-// We use await searchParams before accessing its values.
-// Next.js makes the page value available to your Server Component through searchParams.
+
 export default async function ProductsPage({ searchParams }: ProductPageProps) {
-  //   const params = await searchParams;
-  //   const page = Math.max(1, Number(params.page) || 1);
-  //   const limit = 12;
-  //   const skip = (page - 1) * limit;
-  //   const data = await getProducts(limit, skip);
-  //   const totalPages = Math.ceil(data.total / limit);
   return (
     <Suspense fallback={<p>Loading products...</p>}>
       <ProductsContent searchParams={searchParams} />
     </Suspense>
   );
 }
-async function ProductsContent({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string }>;
-}) {
+async function ProductsContent({ searchParams }: ProductPageProps) {
   const params = await searchParams;
   const page = Math.max(1, Number(params.page) || 1);
   const limit = 12;
   const skip = (page - 1) * limit;
+  const sortBy = params.sortBy ?? "";
+  const order = params.order ?? "asc";
+  const search = params.q?.trim() ?? "";
+  const category = params.category ?? "";
+  const categories = await getProductCategories();
 
-  const data = await getProducts(limit, skip);
-  const totalPages = Math.ceil(data.total / limit);
-
+  const result = await getProductsByEndPoints({
+    limit,
+    skip,
+    category,
+    search,
+    sortBy,
+    order,
+  });
+  const totalPages = result.data?.total ?? 0;
+  const products = result.data?.products ?? [];
+  console.log("URL params:", { category, search, page });
   return (
     <section className="mx-auto max-w-7xl px-6 py-8">
       <h1 className="mb-6 text-3xl font-bold">Our Products</h1>
 
       <p className="mb-6 text-gray-500">
-        Showing {data.products.length} of {data.total} products
+        Showing {result.data?.products.length} of {result.data?.total} products
       </p>
+      <ProductFilters categories={categories} />
 
-      <ProductList products={data.products} />
+      <ProductList products={products} />
 
       <Pagination currentPage={page} totalPages={totalPages} />
     </section>

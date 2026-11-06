@@ -24,3 +24,10 @@ export interface ProductsResponse {
   skip: number;
   limit: number;
 }
+
+// Represents one category returned by DummyJSON.
+export interface ProductCategory {
+  slug: string; // URL-friendly value, e.g. "smartphones"
+  name: string; // Display label, e.g. "Smartphones"
+  url: string;
+}
