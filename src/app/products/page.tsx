@@ -6,17 +6,7 @@ import ProductList from "@/components/products/ProductList";
 import { Suspense } from "react";
 import Pagination from "@/components/products/Pagination";
 import ProductFilters from "@/components/products/ProductFilters";
-
-interface ProductPageProps {
-  searchParams: Promise<{
-    page?: string;
-    q?: string;
-    category?: string;
-    sortBy?: string;
-    order?: "asc" | "desc";
-  }>;
-}
-
+import { ProductPageProps } from "@/types/product";
 export default async function ProductsPage({ searchParams }: ProductPageProps) {
   return (
     <Suspense fallback={<p>Loading products...</p>}>

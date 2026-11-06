@@ -15,9 +15,6 @@ export interface Product {
   images: string[];
 }
 
-/**
- * Represents the complete paginated products response.
- */
 export interface ProductsResponse {
   products: Product[];
   total: number;
@@ -31,3 +28,15 @@ export interface ProductCategory {
   name: string; // Display label, e.g. "Smartphones"
   url: string;
 }
+export interface ProductPageProps {
+  searchParams: Promise<{
+    page?: string;
+    q?: string;
+    category?: string;
+    sortBy?: string;
+    order?: "asc" | "desc";
+  }>;
+}
+export type ProductFiltersProps = {
+  categories: ProductCategory[];
+};

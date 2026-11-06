@@ -3,7 +3,6 @@ import "server-only";
 
 import { apiClient } from "./apiClient";
 const API_BASE_URL = process.env.API_BASE_URL;
-
 type SortOrder = "asc" | "desc";
 
 interface GetProductsArgs {
