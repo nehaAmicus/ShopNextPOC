@@ -35,7 +35,6 @@ async function ProductsContent({ searchParams }: ProductPageProps) {
   });
   const totalPages = result.data?.total ?? 0;
   const products = result.data?.products ?? [];
-  console.log("URL params:", { category, search, page });
   return (
     <section className="mx-auto max-w-7xl px-6 py-8">
       <h1 className="mb-6 text-3xl font-bold">Our Products</h1>
