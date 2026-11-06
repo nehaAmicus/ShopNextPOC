@@ -1,15 +1,11 @@
 import {
   getProductCategories,
-  getProducts,
-  getProductsByCategory,
   getProductsByEndPoints,
-  searchProducts,
 } from "@/services/product.service";
 import ProductList from "@/components/products/ProductList";
 import { Suspense } from "react";
 import Pagination from "@/components/products/Pagination";
 import ProductFilters from "@/components/products/ProductFilters";
-import { ProductsResponse } from "@/types/product";
 
 interface ProductPageProps {
   searchParams: Promise<{
@@ -28,41 +24,17 @@ export default async function ProductsPage({ searchParams }: ProductPageProps) {
     </Suspense>
   );
 }
-async function ProductsContent({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    page?: string;
-    q?: string;
-    category?: string;
-    sortBy?: string;
-    order?: "asc" | "desc";
-  }>;
-}) {
+async function ProductsContent({ searchParams }: ProductPageProps) {
   const params = await searchParams;
   const page = Math.max(1, Number(params.page) || 1);
   const limit = 12;
   const skip = (page - 1) * limit;
   const sortBy = params.sortBy ?? "";
   const order = params.order ?? "asc";
-  // const data = await getProducts(limit, skip);
-
   const search = params.q?.trim() ?? "";
   const category = params.category ?? "";
   const categories = await getProductCategories();
-  // let data: ProductsResponse = await getProductsByCategory(
-  //   category,
-  //   limit,
-  //   skip,
-  // );
-  // if (query) {
-  //   data = await searchProducts(query, limit, skip);
-  // }
-  // const data = category
-  //   ? await getProductsByCategory(category, limit, skip)
-  //   : query
-  //     ? await searchProducts(query, limit, skip)
-  //     : await getProducts(limit, skip);
+
   const result = await getProductsByEndPoints({
     limit,
     skip,
@@ -71,7 +43,6 @@ async function ProductsContent({
     sortBy,
     order,
   });
-  //const totalPages = Math.ceil(result.data?.total / limit);
   const totalPages = result.data?.total ?? 0;
   const products = result.data?.products ?? [];
   console.log("URL params:", { category, search, page });
