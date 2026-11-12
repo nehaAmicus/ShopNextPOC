@@ -1,12 +1,16 @@
+"use client";
 import { Suspense } from "react";
 import { Product } from "../domain/entities/product";
 import ProductGallery from "./ProductGallery";
 import Loading from "@/app/loading";
+import Button from "@/components/ui/Button";
 
 interface Props {
   product: Product;
 }
-
+const addToCart = () => {
+  console.log("Add to Cart");
+};
 export default function ProductDetailsView({ product }: Props) {
   const discountedPrice =
     product.price - (product.price * product.discountPercentage) / 100;
@@ -54,13 +58,18 @@ export default function ProductDetailsView({ product }: Props) {
                 {product.stock > 0 ? "In Stock" : "Out of Stock"}
               </p>
             </div>
+            <div>
+              <Button variant="primary" onClick={addToCart}>
+                Add to Cart
+              </Button>
+            </div>
 
-            <button
+            {/* <button
               disabled={product.stock <= 0}
               className="rounded-lg bg-black px-8 py-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               Add to Cart
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

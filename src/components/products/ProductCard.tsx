@@ -1,6 +1,9 @@
+"use client";
 import type { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "../ui/Button";
+import router from "next/router";
 
 interface ProductCardProps {
   product: Product;
@@ -22,6 +25,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <p className="mt-2 text-lg font-bold">${product.price}</p>
 
       <p className="text-sm text-gray-500">Rating: {product.rating}</p>
+
       <Link href={`/products/${product.id}`}>View Details</Link>
     </article>
   );

@@ -1,4 +1,3 @@
-"use server";
 import { ProductRepositoryImpl } from "../data/repositories/ProductRepositoryImpl";
 import { GetProductDetailsUseCase } from "../domain/usecases/GetProductDetailsUseCase";
 import { GetProductsUseCase } from "../domain/usecases/GetProductsUseCase";
