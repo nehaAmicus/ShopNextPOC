@@ -6,17 +6,7 @@ import ProductList from "@/components/products/ProductList";
 import { Suspense } from "react";
 import Pagination from "@/components/products/Pagination";
 import ProductFilters from "@/components/products/ProductFilters";
-
-interface ProductPageProps {
-  searchParams: Promise<{
-    page?: string;
-    q?: string;
-    category?: string;
-    sortBy?: string;
-    order?: "asc" | "desc";
-  }>;
-}
-
+import { ProductPageProps } from "@/types/product";
 export default async function ProductsPage({ searchParams }: ProductPageProps) {
   return (
     <Suspense fallback={<p>Loading products...</p>}>
@@ -45,7 +35,6 @@ async function ProductsContent({ searchParams }: ProductPageProps) {
   });
   const totalPages = result.data?.total ?? 0;
   const products = result.data?.products ?? [];
-  console.log("URL params:", { category, search, page });
   return (
     <section className="mx-auto max-w-7xl px-6 py-8">
       <h1 className="mb-6 text-3xl font-bold">Our Products</h1>
