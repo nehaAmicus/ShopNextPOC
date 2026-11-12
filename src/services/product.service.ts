@@ -2,6 +2,7 @@ import { Product, ProductCategory, ProductsResponse } from "@/types/product";
 import "server-only";
 
 import { apiClient } from "./apiClient";
+import { ProductResponseDto } from "@/features/products/data/Dto/ProductResponseDto";
 const API_BASE_URL = process.env.API_BASE_URL;
 type SortOrder = "asc" | "desc";
 
@@ -123,4 +124,22 @@ export async function getProductsByEndPoints({
       },
     };
   }
+}
+
+export async function getProductById(
+  id: number,
+): Promise<ProductResponseDto | null> {
+  const response = await fetch(`${API_BASE_URL}/products/${id}`, {
+    next: { revalidate: 60 },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch product details");
+  }
+
+  return response.json();
 }
