@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState } from "react";
 
 interface Props {
@@ -18,10 +18,14 @@ export default function ProductGallery({ images, title }: Props) {
     <div className="space-y-4">
       <div className="relative flex aspect-square items-center justify-center rounded-xl bg-gray-50">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={images[selectedIndex]}
           alt={title}
-          className="h-full w-full rounded-xl object-contain"
+
+          width={400}
+          height={400}
+          className="object-contain"
+          sizes="(max-width: 768px) 100vw, 25vw"
         />
       </div>
 

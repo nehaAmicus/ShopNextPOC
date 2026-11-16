@@ -1,10 +1,9 @@
-import type { Product } from "@/types/product";
+"use client";
+import type { Product, ProductCardProps } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
-
-interface ProductCardProps {
-  product: Product;
-}
+import Button from "../ui/Button";
+import router from "next/router";
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
@@ -16,11 +15,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         height={200}
         className="h-48 w-full object-contain"
       />
-
       <h2 className="mt-3 font-semibold">{product.title}</h2>
-
       <p className="mt-2 text-lg font-bold">${product.price}</p>
-
       <p className="text-sm text-gray-500">Rating: {product.rating}</p>
       <Link href={`/products/${product.id}`}>View Details</Link>
     </article>

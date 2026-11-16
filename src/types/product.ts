@@ -40,3 +40,7 @@ export interface ProductPageProps {
 export type ProductFiltersProps = {
   categories: ProductCategory[];
 };
+
+export interface ProductCardProps {
+  product: Product;
+}
