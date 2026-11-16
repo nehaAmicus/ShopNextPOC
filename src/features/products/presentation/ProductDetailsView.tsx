@@ -50,9 +50,7 @@ export default function ProductDetailsView({ product }: Props) {
               <span>⭐ {product.rating}</span>
               <span>Stock: {product.stock}</span>
             </div>
-
             {product.brand && <p className="text-sm">Brand: {product.brand}</p>}
-
             <div className="border-t pt-5">
               <p className="font-medium">
                 {product.stock > 0 ? "In Stock" : "Out of Stock"}
@@ -63,13 +61,6 @@ export default function ProductDetailsView({ product }: Props) {
                 Add to Cart
               </Button>
             </div>
-
-            {/* <button
-              disabled={product.stock <= 0}
-              className="rounded-lg bg-black px-8 py-3 text-white disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Add to Cart
-            </button> */}
           </div>
         </div>
       </div>

@@ -4,10 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
     const username = body.username?.trim();
     const password = body.password;
-
     // Validate incoming request
     if (
       typeof username !== "string" ||
@@ -20,7 +18,6 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-
     // Execute business operation
     const result = await loginUseCase.execute({
       username,
